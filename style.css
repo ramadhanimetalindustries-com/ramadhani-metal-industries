@@ -1,0 +1,49 @@
+// Sticky Header
+window.addEventListener("scroll", function () {
+  const header = document.querySelector("header");
+
+  if (window.scrollY > 80) {
+    header.style.background = "#000";
+    header.style.padding = "12px 8%";
+  } else {
+    header.style.background = "rgba(0,0,0,0.85)";
+    header.style.padding = "20px 8%";
+  }
+});
+
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", function(e){
+    e.preventDefault();
+
+    document.querySelector(this.getAttribute("href"))
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+  });
+});
+
+// Fade Animation
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+});
+
+document.querySelectorAll(".card,.grade,.contact-box").forEach(el=>{
+  observer.observe(el);
+});
+.card,
+.grade,
+.contact-box{
+opacity:0;
+transform:translateY(40px);
+transition:.8s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
